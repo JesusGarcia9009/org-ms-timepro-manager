@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: org-ms-timepro-manager
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_CONFIG_BD_URL:jdbc:postgresql://localhost:5434/timepro?serverTimezone=America/Santiago}
+    username: ${SPRING_CONFIG_BD_USERNAME:postgres}
+    password: ${SPRING_CONFIG_BD_PASSWORD:postgres}
+    hikari:
+      connection-timeout: 60000 # maximum number of milliseconds that a client will wait for a connection
+      minimum-idle: 2 # minimum number of idle connections maintained by HikariCP in a connection pool
+      maximum-pool-size: 8 # maximum pool size
+      idle-timeout: 600000 # maximum idle time for connection
+      max-lifetime: 30000 # maximum lifetime in milliseconds of a connection in the pool after it is closed
+      auto-commit: true # default auto-commit behavior
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database: postgresql
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      max-file-size: 1024KB
+      max-request-size: 1024KB
+
+springdoc:
+  swagger-ui:
+    operations-sorter: method   
+
+api:
+  config:
+    key: test-key
+    base:
+      uri: /api/timepro/v01
+
+swagger:
+  api:
+    info:
+      title: Timepro Manager
+      version: 0.0.1
+      contact:
+        name: Jesus Garcia
+        url: https://www.timepro.cl
+        email: jesusmanuelgarcia9009@gmail.com
+      license: Apache License Version 2.0
