@@ -16,7 +16,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.ms.timepro.manager.exception.UserNotAuthException;
-import org.ms.timepro.manager.log.Loguer;
+import org.ms.timepro.manager.log.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
     private static final String IS_MFA = "isMfa";
     private static final String ISBLOCKED = "isBLocked";
 
-    @Loguer
+    @Logger
     public String generateToken(JwtUserPrincipal userPrincipal, String apiKey) throws IOException {
         Collection<? extends GrantedAuthority> permisos = userPrincipal.getAuthorities();
 
@@ -95,7 +95,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    @Loguer
+    @Logger
     public JwtUserPrincipal getUserPrincipalFromToken(String token) throws IOException {
         Claims claims = getClaims(token);
         JwtUserPrincipal userPrincipal = new JwtUserPrincipal();
@@ -115,12 +115,12 @@ public class JwtTokenProvider {
         return userPrincipal;
     }
 
-    @Loguer
+    @Logger
     public String getJwtSecretByKey() {
         return Base64.getEncoder().encodeToString(apiKey.getBytes());
     }
 
-    @Loguer
+    @Logger
     public boolean validateToken(String authToken) throws IOException, SignatureException {
         try {
             SecretKey secretKey = new SecretKeySpec(Base64.getDecoder().decode(apiKey), "HmacSHA256");
@@ -145,7 +145,7 @@ public class JwtTokenProvider {
         return Boolean.FALSE;
     }
 
-    @Loguer
+    @Logger
     public Collection<? extends GrantedAuthority> getAuthorityList(String token) throws IOException {
         String auth = (String) getDataByKeyClaims(AUTHORITIES, token);
 
@@ -156,7 +156,7 @@ public class JwtTokenProvider {
         return Collections.emptyList();
     }
 
-    @Loguer
+    @Logger
     public List<JwtProfile> getRoles(String token) throws IOException {
         String profileList = (String) getDataByKeyClaims(ROLES, token);
         if (Objects.nonNull(profileList) && !profileList.equals("null"))
@@ -165,7 +165,7 @@ public class JwtTokenProvider {
         return Collections.emptyList();
     }
 
-    @Loguer
+    @Logger
     public String generateToken(Authentication authentication) throws UserNotAuthException {
         String jwt = "";
         try {
@@ -176,24 +176,24 @@ public class JwtTokenProvider {
         return jwt;
     }
 
-    @Loguer
+    @Logger
     private Object getDataByKeyClaims(String key, String token) {
         Claims claims = getClaims(token);
         return findKeyClaimsInData(key, claims);
     }
 
-    @Loguer
+    @Logger
     private Object findKeyClaimsInData(String key, Claims claims) {
         return claims.get(key, Object.class);
     }
 
-    @Loguer
+    @Logger
     private Long getUserIdFromJWT(String token) {
         Claims claims = getClaims(token);
         return Long.parseLong(claims.getSubject());
     }
 
-    @Loguer
+    @Logger
     private Claims getClaims(String token) {
     	SecretKey secretKey = new SecretKeySpec(Base64.getDecoder().decode(apiKey), "HmacSHA256");
         

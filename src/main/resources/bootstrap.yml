@@ -3,9 +3,9 @@ spring:
     name: org-ms-timepro-manager
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_CONFIG_BD_URL:jdbc:postgresql://localhost:5434/timepro?serverTimezone=America/Santiago}
-    username: ${SPRING_CONFIG_BD_USERNAME:postgres}
-    password: ${SPRING_CONFIG_BD_PASSWORD:postgres}
+    url: ${SPRING_CONFIG_BD_URL:jdbc:postgresql://localhost:5432/inadvancedb}
+    username: ${SPRING_CONFIG_BD_USERNAME:inadvance}
+    password: ${SPRING_CONFIG_BD_PASSWORD:123456}
     hikari:
       connection-timeout: 60000 # maximum number of milliseconds that a client will wait for a connection
       minimum-idle: 2 # minimum number of idle connections maintained by HikariCP in a connection pool

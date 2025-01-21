@@ -5,7 +5,7 @@ import org.ms.timepro.manager.dto.AuthResponseDto;
 import org.ms.timepro.manager.exception.UserNotAuthException;
 import org.ms.timepro.manager.jwt.JwtTokenProvider;
 import org.ms.timepro.manager.jwt.JwtUserPrincipal;
-import org.ms.timepro.manager.log.Loguer;
+import org.ms.timepro.manager.log.Logger;
 import org.ms.timepro.manager.utils.ConstantUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,7 +22,7 @@ public class AuthServicesImpl {
 	private final AuthenticationManager securityAuthenticationManager;
 	private final JwtTokenProvider jwtTokenProvider;
 	
-	@Loguer
+	@Logger
 	public AuthResponseDto authenticateUser(AuthRequestDto dto)
 			throws UserNotAuthException {
 		AuthResponseDto result = null;
@@ -42,13 +42,13 @@ public class AuthServicesImpl {
 		return result;
 	}
 
-	@Loguer
+	@Logger
 	private Authentication authenticateUser(String userAndPassword, String password) {
 		return securityAuthenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(userAndPassword, password));
 	}
 
-	@Loguer
+	@Logger
 	private void checkUserAuthStatus(JwtUserPrincipal userPrincipal) throws UserNotAuthException {
 		if (Boolean.TRUE.equals(userPrincipal.getIsBlocked())) {
 			throw new UserNotAuthException(ConstantUtil.USR_BLOCKED_STR);
@@ -58,7 +58,7 @@ public class AuthServicesImpl {
 		}
 	}
 
-	@Loguer
+	@Logger
 	private AuthResponseDto createAuthResponse(JwtUserPrincipal userPrincipal, Authentication authentication)
 			throws UserNotAuthException {
 		AuthResponseDto authPass = new AuthResponseDto();

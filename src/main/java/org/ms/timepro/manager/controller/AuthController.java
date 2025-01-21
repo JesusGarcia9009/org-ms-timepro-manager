@@ -3,7 +3,7 @@ package org.ms.timepro.manager.controller;
 import org.ms.timepro.manager.dto.AuthRequestDto;
 import org.ms.timepro.manager.dto.AuthResponseDto;
 import org.ms.timepro.manager.exception.UserNotAuthException;
-import org.ms.timepro.manager.log.Loguer;
+import org.ms.timepro.manager.log.Logger;
 import org.ms.timepro.manager.services.AuthServicesImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class AuthController {
 	
 	private final AuthServicesImpl authService;
 
-	@Loguer
+	@Logger
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponseDto> authenticateUser(@Valid @RequestBody AuthRequestDto dto)
 			throws UserNotAuthException {

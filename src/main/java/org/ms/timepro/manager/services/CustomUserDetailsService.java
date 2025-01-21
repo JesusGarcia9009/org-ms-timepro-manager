@@ -1,7 +1,7 @@
 package org.ms.timepro.manager.services;
 
 import org.ms.timepro.manager.jwt.JwtUserPrincipal;
-import org.ms.timepro.manager.log.Loguer;
+import org.ms.timepro.manager.log.Logger;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomUserDetailsService implements UserDetailsService {
 
 
-	@Loguer
+	@Logger
 	@Override
 	public JwtUserPrincipal loadUserByUsername(String username) {
 		JwtUserPrincipal result = new JwtUserPrincipal();

@@ -17,12 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class LoggingAspect {
 
-    @Before("@annotation(com.pdr.security.log.Loguer)")
+    @Before("@annotation(org.ms.timepro.manager.log.Logger)")
     public void logMethodStart(JoinPoint joinPoint) {
     	log.info(String.format(LOG_START, joinPoint.getSignature().getName()));
     }
 
-    @After("@annotation(com.pdr.security.log.Loguer)")
+    @After("@annotation(org.ms.timepro.manager.log.Logger)")
     public void logMethodEnd(JoinPoint joinPoint) {
     	log.info(String.format(LOG_END, joinPoint.getSignature().getName()));
     }
