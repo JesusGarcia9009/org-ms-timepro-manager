@@ -18,13 +18,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("auth")
 public class AuthController {
-	
+
 	private final AuthServicesImpl authService;
 
 	@Logger
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponseDto> authenticateUser(@Valid @RequestBody AuthRequestDto dto)
-			throws UserNotAuthException {
+			throws UserNotAuthException
+	{
+		//return ResponseEntity.ok("chulao");
 		return ResponseEntity.ok(authService.authenticateUser(dto));
 	}
 

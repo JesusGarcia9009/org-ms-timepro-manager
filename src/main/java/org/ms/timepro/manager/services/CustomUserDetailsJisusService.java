@@ -1,6 +1,7 @@
 package org.ms.timepro.manager.services;
 
-import org.ms.timepro.manager.jwt.JwtUserPrincipal;
+
+import org.jwt.security.dto.JwtUserPrincipal;
 import org.ms.timepro.manager.log.Logger;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsJisusService implements UserDetailsService {
 
 
 	@Logger

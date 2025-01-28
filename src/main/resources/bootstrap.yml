@@ -34,14 +34,3 @@ api:
     key: test-key
     base:
       uri: /api/timepro/v01
-
-swagger:
-  api:
-    info:
-      title: Timepro Manager
-      version: 0.0.1
-      contact:
-        name: Jesus Garcia
-        url: https://www.timepro.cl
-        email: jesusmanuelgarcia9009@gmail.com
-      license: Apache License Version 2.0

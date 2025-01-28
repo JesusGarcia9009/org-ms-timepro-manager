@@ -1,10 +1,10 @@
 package org.ms.timepro.manager.services;
 
+import org.jwt.security.dto.JwtUserPrincipal;
+import org.jwt.security.security.JwtTokenProvider;
 import org.ms.timepro.manager.dto.AuthRequestDto;
 import org.ms.timepro.manager.dto.AuthResponseDto;
 import org.ms.timepro.manager.exception.UserNotAuthException;
-import org.ms.timepro.manager.jwt.JwtTokenProvider;
-import org.ms.timepro.manager.jwt.JwtUserPrincipal;
 import org.ms.timepro.manager.log.Logger;
 import org.ms.timepro.manager.utils.ConstantUtil;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServicesImpl {
-	
+
 	private final AuthenticationManager securityAuthenticationManager;
 	private final JwtTokenProvider jwtTokenProvider;
 	
@@ -26,7 +26,8 @@ public class AuthServicesImpl {
 	public AuthResponseDto authenticateUser(AuthRequestDto dto)
 			throws UserNotAuthException {
 		AuthResponseDto result = null;
-		try {
+
+        try {
 			Authentication authentication = authenticateUser(dto.getUsername(), dto.getPassword());
 			JwtUserPrincipal userPrincipal = (JwtUserPrincipal) authentication.getPrincipal();
 
@@ -50,7 +51,7 @@ public class AuthServicesImpl {
 
 	@Logger
 	private void checkUserAuthStatus(JwtUserPrincipal userPrincipal) throws UserNotAuthException {
-		if (Boolean.TRUE.equals(userPrincipal.getIsBlocked())) {
+		if (Boolean.TRUE.equals(userPrincipal.getIsActive())) {
 			throw new UserNotAuthException(ConstantUtil.USR_BLOCKED_STR);
 		}
 		if (Boolean.FALSE.equals(userPrincipal.getIsActive())) {
@@ -60,14 +61,14 @@ public class AuthServicesImpl {
 
 	@Logger
 	private AuthResponseDto createAuthResponse(JwtUserPrincipal userPrincipal, Authentication authentication)
-			throws UserNotAuthException {
+			throws Exception {
 		AuthResponseDto authPass = new AuthResponseDto();
 
 		authPass.setToken(jwtTokenProvider.generateToken(authentication));
 		authPass.setUsername(userPrincipal.getUsername());
 		authPass.setFullName(userPrincipal.getFullName());
 		authPass.setId(userPrincipal.getIdUsuario());
-		authPass.setIsMfa(userPrincipal.getIsMfa());
+		//authPass.setIsMfa(userPrincipal.getIsMfa());
 
 		return authPass;
 	}
