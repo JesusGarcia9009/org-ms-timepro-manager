@@ -1,6 +1,9 @@
 spring:
   application:
     name: org-ms-timepro-manager
+  data:
+    rest:
+      base-path: /api/timepro
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${SPRING_CONFIG_BD_URL:jdbc:postgresql://localhost:5432/inadvancedb}
