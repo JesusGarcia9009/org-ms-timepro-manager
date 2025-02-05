@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.jwt.security.entity.Profile;
+import org.ms.timepro.manager.anotations.Rut;
 
 @Builder
 @Getter
@@ -13,6 +14,7 @@ import org.jwt.security.entity.Profile;
 @AllArgsConstructor
 public class RegisterUserRequestDTO {
 
+    @Rut
     private String rut;
     private String name;
     private String lastName;

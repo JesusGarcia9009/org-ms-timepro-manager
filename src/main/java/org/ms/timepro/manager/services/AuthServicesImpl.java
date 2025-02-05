@@ -1,8 +1,7 @@
 package org.ms.timepro.manager.services;
 
-import io.jsonwebtoken.security.Password;
+import lombok.RequiredArgsConstructor;
 import org.jwt.security.dto.JwtUserPrincipal;
-import org.jwt.security.entity.Profile;
 import org.jwt.security.entity.Users;
 import org.jwt.security.repository.ProfileRepository;
 import org.jwt.security.repository.UserRepository;
@@ -19,11 +18,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -63,8 +59,11 @@ public class AuthServicesImpl implements AuthLoginService {
 	public UserResponseDTO registerUser(RegisterUserRequestDTO dto) throws UserNotAuthException {
 
 		UserResponseDTO response = null;
+	/*	userRepository
+				.findByUsername(dto.getUsername())
+				.orElseThrow(() -> new UserNotAuthException(ConstantUtil.USR_REGISTRY));*/
 
- 		Users users = Users.builder()
+		Users users = Users.builder()
 				.name(dto.getName())
 				.username(dto.getUsername())
 				.active(Boolean.TRUE)
@@ -73,11 +72,14 @@ public class AuthServicesImpl implements AuthLoginService {
 				.email(dto.getEmail())
 				.mailingAdd(dto.getMailingAdd())
 				.lastName(dto.getLastName())
-				.profile(profileRepository.findByProfileName(dto.getProfile()))
+				.profile(profileRepository.findByProfileCode(dto.getProfile()))
 				.rut(dto.getRut())
 				.pass(passwordEncoder.encode(dto.getPass())).build();
 		 userRepository.save(users);
 
+		 modelMapper.typeMap(Users.class, UserResponseDTO.class)
+				 .addMapping(Users::getName, UserResponseDTO::setName)
+				 .addMapping(Users::getUsername, UserResponseDTO::setUsername );
 		response = modelMapper.map(users, UserResponseDTO.class);
 		return response;
 	}

@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/timepro/v01/auth")
 public class AuthController {
 
 	private final AuthServicesImpl authService;

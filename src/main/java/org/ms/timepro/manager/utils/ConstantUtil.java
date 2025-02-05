@@ -15,6 +15,7 @@ public class ConstantUtil {
 	public static final String COLOR = "#D6D6D6";
 	public static final String ICON = "fa-external-link-alt";
 	public static final String USR_BLOCKED_STR = "USR_BLCKD";
+	public static final String USR_REGISTRY = "USR_REGISTRY";
 	public static final String USR_INACTIVE = "USR_INACTIVE";
 	public static final String APP_INACTIVE = "APP_INACTIVE";
 
